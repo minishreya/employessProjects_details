@@ -1,0 +1,8 @@
+"cloudinary": "^1.27.0",
+    "ejs": "^3.1.6",
+    "exceljs": "^4.3.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.2",
+    "mongoose": "^6.0.6",
+    "multer": "^1.4.3",
+    "xlsx": "^0.17.2"

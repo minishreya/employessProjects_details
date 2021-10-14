@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+<pre>                        <h1> Employees Details of  <%= data.name %></h1>    </pre>
+
+     <div class="container">
+      <div class="row">
+      
+    
+          <div class="col">
+          <div class="card mb-3" style="width: 18rem">
+            <img src="<%= data.image %>" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title"><%= data.name %></h5>
+              <label>Department:  <%=data.deparment %></label></br>
+              <label>Role:  <%=data.role %></label>
+              <p          class="card-text">Status: <%= data.status %></p>
+              <p class="card-text"> mail id: <%= data.email %></p>
+
+               <label>employeesaddress:  <%=data.employeesaddress %></label>
+               <label>qualification:  <%=data.qualification %></label>
+               <label>date Of Join:    <%=data.dateOfJoin %></label></br>   
+               <label>phone:  <%=data.phone %></label>
+
+            </div>
+          </div>
+        </div>
+     
+          
+      </div>
+    </div>
