@@ -1,12 +1,11 @@
-const projectsmodel=require('../models/projects.model')
-const helper=require('../service/helperproject')
+//const projectsmodel=require('../models/task.model')
+const helper=require('../service/helpertask')
 const fs=require('fs')
 
-const projectadding=function(req,res)
+const taskadding=function(req,res)
 {
     helper.store(req.body).then(function(data)
     {
-        console.log(req.body)
         res.send(data)
 
     },function(error)
@@ -15,9 +14,9 @@ const projectadding=function(req,res)
         res.status(500).send()
     })
 }
-const allprojectseen = function(req,res)
+const alltaskseen = function(req,res)
 {
-    helper.allprojects({query:req.query}).then(function(result)
+    helper.alltask({query:req.query}).then(function(result)
     {
         res.json(result)
     },function(error)
@@ -27,9 +26,9 @@ const allprojectseen = function(req,res)
     
 
 }
-const editprojects = function(req,res)
+const edittask = function(req,res)
 {
-    helper.editproject(req.body).then(function (result) {
+    helper.edittask(req.body, res).then(function (result) {
         console.log("data updated...", result)
         res.send(result)
     }, function (error) {
@@ -38,9 +37,9 @@ const editprojects = function(req,res)
     })
 
 }
-const deleteprojects = function(req,res)
+const deletetask = function(req,res)
 {
-    helper.deleteproject(req.body, res).then(function (result) {
+    helper.deletetask(req.body, res).then(function (result) {
         console.log("data delete...", result)
         res.send("this employees data delete..")
 
@@ -51,12 +50,12 @@ const deleteprojects = function(req,res)
 
 }
 
-const projectid = function(req,res)
+const taskid = function(req,res)
 {
     console.log("employees id is......", req.params)
-    helper.oneproject(req.params).then(function (result) {
+    helper.onetask(req.params).then(function (result) {
+        res.json(result)
        // res.render("Oneemployeesdetails", { data: result })
-       res.json(result)
 
     }, function (error) {
 
@@ -65,9 +64,9 @@ const projectid = function(req,res)
 }
 
 module.exports={
-    projectadding,
-    allprojectseen,
-    editprojects,
-    deleteprojects,
-    projectid
+    taskadding,
+    alltaskseen,
+    edittask,
+    deletetask,
+    taskid
 }

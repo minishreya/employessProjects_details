@@ -3,10 +3,11 @@ const prouter=express.Router()
 
 const controller=require('../controller/projects')
 const helper=require('../helper')
+const auth=require('../auth.service')
 
-prouter.post("/projectadd",controller.projectadding)
+prouter.post("/projectadd",auth.authenticateAdmin,controller.projectadding)
 prouter.get("/allprojects",controller.allprojectseen)
-prouter.put("/editproject",controller.editprojects)
-prouter.delete("/deleteproject",controller.deleteprojects)
+prouter.put("/editproject",auth.authenticateAdmin,controller.editprojects)
+prouter.delete("/deleteproject",auth.authenticateAdmin,controller.deleteprojects)
 prouter.get("/:projectid",controller.projectid)
 module.exports=prouter

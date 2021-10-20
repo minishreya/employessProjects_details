@@ -1,14 +1,14 @@
 const fs = require("fs")
-const projectmodel=require('../models/projects.model')
+const petmodel=require('../models/pet.model')
 const store = (data)=>
 {
 return new Promise(function(resolve,reject)
 {
     
-        var projectsdata=new projectmodel(data)
-        projectsdata.save().then(function(result)
+        var petdata=new petmodel(data)
+        petdata.save().then(function(result)
         {
-            console.log(result)
+            console.log("data is added projects")
             resolve(result)
         },function(error)
         {
@@ -20,14 +20,14 @@ return new Promise(function(resolve,reject)
 })}
 
 
-const allprojects = function (data) {
+const allpet = function (data) {
     console.log("...........data", data)
     return new Promise(function (resolve, reject) {
         var query = data.query || {}
         // var projection = { coverid: 1, title: 1 }
         // CoversModel.find(query, projection).then(function (result) {
            // projectmodel.find(query).populate( {path:'employeeIds',select: 'name'} ).then(function (result) {
-                projectmodel.find(query).then(function (result) {
+                petmodel.find(query).populate( {path:'employeeids',select: 'name'} ).populate({path:'projectids'}).populate({path:'taskid'}).then(function (result) {
             console.log("find employees......", result)
             resolve(result)
         }, function (error) {
@@ -38,24 +38,24 @@ const allprojects = function (data) {
 
 }
 
-const editproject= function(data)
+const editpet= function(data)
 {
     var findquery={
-        projectid:data.projectid
+        petid:data.petid
     }
     var updateQuery={
-        projectid:data.projectid,
-        name:data.name,
-        details:data.details,
-        department:data.department,
-        technology:data.technology,
-        site:data.site
+        taskid:data.taskid,
+        employeeids:data.employeeids,
+        projectids:data.projectids,
+        petname:data.petname,
+        petdetails:data.petdetails
 
     }
 
     return new Promise(function(resolve,reject)
     {
-        projectmodel.findOneAndUpdate(findquery,updateQuery,{upsert: false,new :true}).then(function (result){        console.log("update data...",result)
+        petmodel.findOneAndUpdate(findquery,updateQuery,{upsert: false,new :true}).then(function (result){
+        console.log("update data...",result)
         if(result!=null)
         {
             resolve(result)
@@ -64,24 +64,23 @@ const editproject= function(data)
         {
             reject("something went wrong..")
         }
-        },function(error)
+    },function(error)
     {
         console.log("some error")
         reject(error)
     })
-})
+    })
 }
-    
 
-const deleteproject= function(data)
+const deletepet= function(data)
 {
     return new Promise(function(resolve,reject)
     {
         var query={
-            projectid:data.projectid
+            petid:data.petid
         }
 
-        projectmodel.remove(query).then(function(result){
+        petmodel.remove(query).then(function(result){
             console.log("result removing from db",result)
             resolve(result)
         },function(error)
@@ -89,23 +88,24 @@ const deleteproject= function(data)
             console.log("error removing from db",error)
             reject(error)
         })
-    })
+    }
+    )
 }
 
-const oneproject= function(data)
-{
-    console.log("...........data", data)
-    return new Promise(function (resolve, reject) {
+// const oneproject= function(data)
+// {
+//     console.log("...........data", data)
+//     return new Promise(function (resolve, reject) {
 
-        projectmodel.findOne(data).then(function (result) {
-            console.log("find employess......", result)
-            resolve(result)
-        }, function (error) {
-            console.log("error find in employees from db", error)
-            reject(error)
-        })
-    })
-}
+//         projectmodel.findOne(data).then(function (result) {
+//             console.log("find employess......", result)
+//             resolve(result)
+//         }, function (error) {
+//             console.log("error find in employees from db", error)
+//             reject(error)
+//         })
+//     })
+// }
 
 
 
@@ -117,9 +117,9 @@ const oneproject= function(data)
 
 module.exports={
     store,
-    allprojects,
-    editproject,
-    deleteproject,
-    oneproject
+    allpet,
+    editpet,
+    deletepet
+   // oneproject
 
 }

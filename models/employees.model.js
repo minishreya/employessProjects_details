@@ -1,7 +1,7 @@
 const Mongoose = require('mongoose')
 const Schema = Mongoose.Schema
 const employeesSchema = new Schema({
-    employeeid:{type:Number,unique:true,require:true},
+    employeeid:{type:Number,unique:true,require:true}, // user define
     name:{type:String,require:true},
     email:{type:String , unique:true , required:true},
     deparment:{type:String,required:true},

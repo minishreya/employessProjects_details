@@ -13,6 +13,9 @@ const dburl = "mongodb://localhost:27017/companyemployees"
 const employeesmodel = require('./models/employees.model')
 const routeremployees=require('./router/routerEmployees')
 const routerprojects=require('./router/routerProjects')
+const routertask=require('./router/routerTask')
+const routerworklogin=require('./router/routerEmployeesworkHour.js')
+const routerpet=require('./router/routerPEconnect')
 const logger=require('./middleware/logger')
 //............
 //const url = "mongodb://localhost:27017/";
@@ -21,14 +24,19 @@ const logger=require('./middleware/logger')
 //link is  on heroku----->
 //https://employeesbymini.herokuapp.com/allemployes
 
+//[Deploy to Heroku - Prashanth Sir's channel]: https://www.youtube.com/watch?v=tBqIqDK6ZF4
+
+
 servers.use(bodyparser.json())
 servers.set('view engine', "ejs")
 // middleware 1
 servers.use(logger);
+servers.use("/t",routertask)
 
-servers.use(routerprojects)
-servers.use(routeremployees)
-//servers.use(routerprojects)
+servers.use("/e",routeremployees)
+servers.use("/p",routerprojects)
+servers.use("/auth",routerworklogin)
+servers.use("/pet",routerpet)
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

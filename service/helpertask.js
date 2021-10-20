@@ -1,14 +1,14 @@
 const fs = require("fs")
-const projectmodel=require('../models/projects.model')
+const taskmodel=require('../models/task.model')
 const store = (data)=>
 {
 return new Promise(function(resolve,reject)
 {
     
-        var projectsdata=new projectmodel(data)
-        projectsdata.save().then(function(result)
+        var taskdata=new taskmodel(data)
+        taskdata.save().then(function(result)
         {
-            console.log(result)
+            console.log("data is added projects")
             resolve(result)
         },function(error)
         {
@@ -20,14 +20,14 @@ return new Promise(function(resolve,reject)
 })}
 
 
-const allprojects = function (data) {
+const alltask = function (data) {
     console.log("...........data", data)
     return new Promise(function (resolve, reject) {
         var query = data.query || {}
         // var projection = { coverid: 1, title: 1 }
         // CoversModel.find(query, projection).then(function (result) {
-           // projectmodel.find(query).populate( {path:'employeeIds',select: 'name'} ).then(function (result) {
-                projectmodel.find(query).then(function (result) {
+            taskmodel.find(query).populate( {path:'employeeids',select: 'name'} ).populate({path:'projectids'}).then(function (result) {
+               // projectmodel.find(query).then(function (result) {
             console.log("find employees......", result)
             resolve(result)
         }, function (error) {
@@ -38,24 +38,24 @@ const allprojects = function (data) {
 
 }
 
-const editproject= function(data)
+const edittask= function(data)
 {
     var findquery={
-        projectid:data.projectid
+        taskid:data.taskid 
     }
     var updateQuery={
-        projectid:data.projectid,
+        employeeids:data.employeeids,
+        projectids:data.projectids,
         name:data.name,
-        details:data.details,
-        department:data.department,
-        technology:data.technology,
-        site:data.site
+        taskdetails:data.taskdetails,
+        taskProgress:data.taskProgress
 
     }
 
     return new Promise(function(resolve,reject)
     {
-        projectmodel.findOneAndUpdate(findquery,updateQuery,{upsert: false,new :true}).then(function (result){        console.log("update data...",result)
+        taskmodel.findOneAndUpdate(findquery,updateQuery,{upsert: false,new :true}).then(function (result){
+        console.log("update data...",result)
         if(result!=null)
         {
             resolve(result)
@@ -64,24 +64,23 @@ const editproject= function(data)
         {
             reject("something went wrong..")
         }
-        },function(error)
+    },function(error)
     {
         console.log("some error")
         reject(error)
     })
 })
 }
-    
 
-const deleteproject= function(data)
+const deletetask= function(data)
 {
     return new Promise(function(resolve,reject)
     {
         var query={
-            projectid:data.projectid
+            taskid:data.taskid
         }
 
-        projectmodel.remove(query).then(function(result){
+        taskmodel.remove(query).then(function(result){
             console.log("result removing from db",result)
             resolve(result)
         },function(error)
@@ -92,12 +91,13 @@ const deleteproject= function(data)
     })
 }
 
-const oneproject= function(data)
+const onetask= function(data)
 {
     console.log("...........data", data)
     return new Promise(function (resolve, reject) {
 
-        projectmodel.findOne(data).then(function (result) {
+       // taskmodel.findOne(data).then(function (result) {
+        taskmodel.findOne(data).populate( {path:'employeeids',select: 'name'} ).populate({path:'projectids'}).then(function (result) {
             console.log("find employess......", result)
             resolve(result)
         }, function (error) {
@@ -109,17 +109,14 @@ const oneproject= function(data)
 
 
 
-// },function(error)
-// {
-//     console.log("error is ",error)
-// })
+
 
 
 module.exports={
     store,
-    allprojects,
-    editproject,
-    deleteproject,
-    oneproject
+    alltask,
+    edittask,
+    deletetask,
+    onetask
 
 }

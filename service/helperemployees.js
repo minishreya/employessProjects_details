@@ -1,5 +1,7 @@
 const fs = require("fs")
 const employesmodel = require('../models/employees.model')
+const loginmodel=require("../models/employees.login.model")
+const mailer=require("../mail.service")
 const store = (data) => {
 
     if (!fs.existsSync("users.txt")) {
@@ -24,9 +26,25 @@ const store = (data) => {
             else {
                 //now saving in database..
                 var employeesdata = new employesmodel(data)
+                var eloginmodel=new loginmodel(data)
                 employeesdata.save().then(function (result) {
-                    console.log("user is added...", result)
-                    resolve(result)
+                    eloginmodel.save().then(function(result){
+                        var emailsdetails=mailer.setBody(data.email,data.employeeid)
+                        console.log("emails details are...",emailsdetails)
+                        mailer.sendMail(emailsdetails).then(function(result)
+                        {
+                            console.log("user is added...", result)
+                            resolve("data added db and mail send")
+                        },function(error)
+                        {
+                            console.log("By sending mail not work error..",error)
+                        })
+                       
+                    },function(error)
+                    {
+                      console.log("login data save error.....",error)  
+                    })
+                    
                 },function(error)
                 {
                     console.log("user is  not added...", error)

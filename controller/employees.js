@@ -47,6 +47,7 @@ const empoyessadding =function (req, res) {
 }
 
 const allemployeesseen = function (req, res) {
+    console.log("///////////////////",req.body)
     helper.allemployees({ query: req.query }).then(function (result) {
         res.render("allemployeesdetails", { data: result })
 
@@ -62,7 +63,7 @@ const editemployees = function (req, res) {
         res.send(result)
     }, function (error) {
         console.log("some error while updation...", error)
-        res.send("error in updated or employee not found")
+       // res.send("error in updated or employee not found")
     })
 }
 
@@ -80,7 +81,8 @@ const deleteemployees = function (req, res) {
 const employeesid = function (req, res) {
     console.log("employees id is......", req.params)
     helper.oneemployees(req.params).then(function (result) {
-        res.render("Oneemployeesdetails", { data: result })
+       // res.render("Oneemployeesdetails", { data: result })
+       res.json(result)
 
     }, function (error) {
 
