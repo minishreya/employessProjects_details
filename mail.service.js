@@ -1,10 +1,13 @@
 const nodemailer = require('nodemailer')
 
 let mailTransporter = nodemailer.createTransport({
-	service: 'gmail',
+	service: "gmail",
+    port: 587,
+    secure: false,
 	auth: {
-		user: '1805006@ritindia.edu',
-		pass: 'rit@shaw'
+		user: 'fyndshreyajaiswal@gmail.com',
+		pass: 'fynd2021'
+        
 	}
 });
 
@@ -12,7 +15,7 @@ var setBody = (email, url) => {
     var string = `Emloyee id ${url}is password ${url}  and login id is ${email} to check details`
     console.log(string)
     var mailDetails = {
-        from: '1805006@ritindia.edu',
+        from: 'minishreya221996@gmail.com',
         to: email,
         subject: "No reply plz",
         html: string
@@ -26,11 +29,11 @@ function sendMail(details) {
     return new Promise((resolve, reject) => {
         mailTransporter.sendMail(details, function(err, data) {
             if(err) {
-                //console.log('Error Occured');
-                reject()
+                console.log('Error Occured',err);
+                reject(err)
             } else {
-                //console.log('Email sent successfully');
-                resolve()
+                console.log('Email sent successfully');
+                resolve(data)
             }
         })
     })

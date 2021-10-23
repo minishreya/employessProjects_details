@@ -149,12 +149,13 @@ cloudnary.config({
 
 // }
 
+
 const upload = function (req, res) {
-    res.send("recevied")
+    //res.send("recevied")
     console.log(".......file stored", req.file.path)
 
     var pathing = req.file.path
-    cloudnary.v2.uploader.upload("C:/Users/Shreya/Desktop/fynd traning/employees_details/" + pathing,
+    cloudnary.v2.uploader.upload("C:/Users/Shreya/Desktop/fynd traning/employessProjects_details/" + pathing,
         {
             resource_type: "image",
         }, function (error, result) {
@@ -163,10 +164,32 @@ const upload = function (req, res) {
             }
             else {
                 console.log(result.url)
+                res.send(result.url)
                 // mailing(result.url)
             }
         })
 }
+
+// const upload = function (req, res) {
+//     //res.send("recevied")
+//     console.log(".......file stored", req.file.path)
+
+//     var pathing = req.file.path
+//     cloudnary.v2.uploader.upload("C:/Users/Shreya/Desktop/fynd traning/employeesProjects_details/" + pathing,
+//         {
+//             resource_type: "image",
+//         }, function (error, result) {
+            
+//             if (error) {
+//                 console.log(error)
+//             }
+//             else {
+//                 console.log(result.url)
+//                 res.send(result.url)
+//                 // mailing(result.url)
+//             }
+//         })
+// }
 
 // const storage = multer.diskStorage({
 //     destination: function (req, file, cb) {

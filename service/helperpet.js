@@ -12,8 +12,12 @@ return new Promise(function(resolve,reject)
             resolve(result)
         },function(error)
         {
-            console.log("not added project",error)
-            resolve(error)
+            petdata.remove({petid:data.petid}).then(function()
+            {
+                console.log("not added project",error)
+                reject(error)
+            })
+            
         })
     
 

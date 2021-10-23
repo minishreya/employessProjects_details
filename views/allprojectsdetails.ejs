@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
     integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-<pre>                        <h1> All Employees Details</h1>    </pre>
+<pre>                        <h1> All Projects Details</h1>    </pre>
 <nav class="navbar">
-  <ul>
-    <ul style="padding-left:50px">&heartsuit;
-      <li style="display:inline"><a href="/e">Employees</a></li> &nbsp; &heartsuit;
-      <li style="display:inline"><a href="/e/allemployes">All Employees</a></li> &nbsp;&heartsuit;
-      <li style="display:inline"><a href="/pet/allpet">All PET</a></li> &nbsp;&heartsuit;
-      <li style="display:inline"><a href="/p/allprojects">Projects</a></li> &nbsp;&heartsuit;
+  <ul style="padding-left:50px">&heartsuit;
+    <li style="display:inline"><a href="/">Home</a></li>&nbsp; &heartsuit;
+    <li style="display:inline"><a href="/p">Projects</a></li> &nbsp; &heartsuit;
+    <li style="display:inline"><a href="/e/allemployes">All Employees</a></li> &nbsp;&heartsuit;
+    <li style="display:inline"><a href="/pet/allpet">All PET</a></li> &nbsp;&heartsuit;
+    <li style="display:inline"><a href="/p/allprojects"> All Projects</a></li> &nbsp;&heartsuit;
 
 
   </ul>
@@ -20,12 +20,11 @@
         <% for(var i=0; i < data.length; i++) { %>
           <div class="col">
           <div class="card mb-3" style="width: 15rem">
-            <img src="<%= data[i].image %>" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title"><%= data[i].name %></h5>
               <label>Department:  <%=data[i].deparment %></label></br>
-              <H6><%= data[i].email %></H6>
-              <a href="<%=data[i].employeeid%>" class="btn btn-primary">Details</a>
+              <H6><%= data[i].technology %></H6>
+              <H6><%= data[i].site %></H6>
             </div>
           </div>
         </div>

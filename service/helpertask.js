@@ -12,8 +12,9 @@ return new Promise(function(resolve,reject)
             resolve(result)
         },function(error)
         {
+            taskdata.remove({taskid:data.taskid})
             console.log("not added project",error)
-            resolve(error)
+            reject(error)
         })
     
 
@@ -97,7 +98,8 @@ const onetask= function(data)
     return new Promise(function (resolve, reject) {
 
        // taskmodel.findOne(data).then(function (result) {
-        taskmodel.findOne(data).populate( {path:'employeeids',select: 'name'} ).populate({path:'projectids'}).then(function (result) {
+        //taskmodel.findOne(data).populate( {path:'employeeids',select: 'name'} ).populate({path:'projectids'}).then(function (result) {
+            taskmodel.findOne(data).populate( {path:'employeeids'} ).populate({path:'projectids'}).then(function (result) {
             console.log("find employess......", result)
             resolve(result)
         }, function (error) {

@@ -20,7 +20,7 @@ const store = (data) => {
         var string = JSON.stringify(data) + "\n"
         fs.appendFile("users.txt", string, function (error) {
             if (error) {
-                console.log("errorrorororoor")
+                console.log("conroller while appending file error",error)
                 reject(error)
             }
             else {
@@ -37,18 +37,24 @@ const store = (data) => {
                             resolve("data added db and mail send")
                         },function(error)
                         {
-                            console.log("By sending mail not work error..",error)
+                            employeesdata.remove({employeeid:data.employeeid}).then(function(){
+                                eloginmodel.remove({employeeid:data.employeeid})
+                                console.log("By sending mail not work error..",error)
+                                reject("Check your emailId is not valid or some data is misssing")
+                            })
+                            
                         })
                        
                     },function(error)
                     {
-                      console.log("login data save error.....",error)  
+                      console.log("login data save error.....",error) 
+                            reject(error)
                     })
                     
                 },function(error)
                 {
                     console.log("user is  not added...", error)
-                    resolve(error)
+                    reject(error)
                 })
 
                 // resolve(string)

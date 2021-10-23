@@ -19,12 +19,12 @@ const employeesmodel = require('../models/employees.model')
 
 
 path.join(__dirname,"../index.html")
-console.log(path.join(__dirname,"../index.html"))
+console.log(path.join(__dirname,"../indexE.html"))
 console.log(__filename)
 
 
 const home = function (req, res) {
-    res.sendFile(path.join(__dirname,"../index.html"))
+    res.sendFile(path.join(__dirname,"../indexE.html"))
     convertJsonToExcel()
 }
 
@@ -40,8 +40,12 @@ const empoyessadding =function (req, res) {
         // res.send={
         //     message:"duplicate employees id not be admitted"
         // }
-        console.log("error is...", data)
-        res.status(500).send()
+        console.log("error is...",error)
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
     })
 
 }
@@ -52,7 +56,12 @@ const allemployeesseen = function (req, res) {
         res.render("allemployeesdetails", { data: result })
 
     }, function (error) {
-
+        console.log("error is...",error)
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        ) 
     })
 
 }
@@ -63,6 +72,13 @@ const editemployees = function (req, res) {
         res.send(result)
     }, function (error) {
         console.log("some error while updation...", error)
+        console.log("error is...",error)
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
+        
        // res.send("error in updated or employee not found")
     })
 }
@@ -74,7 +90,13 @@ const deleteemployees = function (req, res) {
 
     }, function (error) {
         console.log("some error while deletion...")
-        res.send("error in deletion..", error)
+       // res.send("error in deletion..", error)
+        console.log("error is...",error)
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
     })
 }
 
@@ -85,7 +107,11 @@ const employeesid = function (req, res) {
        res.json(result)
 
     }, function (error) {
-
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
     })
 }
 

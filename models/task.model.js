@@ -6,11 +6,13 @@ const projectsSchema=new Schema({
     employeeids: {
         type: [ Mongoose.Schema.Types.ObjectId ],
         ref: 'users',
-       default:[]
+       default:[],
+       require:true
     },
     projectids:{type: [ Mongoose.Schema.Types.ObjectId ],
         ref: 'project',
-        default:[]
+        default:[],
+        require:true
 
 },
     name:{type:String, require:true},

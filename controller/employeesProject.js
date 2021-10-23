@@ -2,6 +2,8 @@ const projectsmodel=require('../models/pet.model')
 const helper=require('../service/helperpet')
 const fs=require('fs')
 
+
+
 const petadding=function(req,res)
 {
     helper.store(req.body).then(function(data)
@@ -12,7 +14,11 @@ const petadding=function(req,res)
     },function(error)
     {
         console.log("error is..",error)
-        res.status(500).send()
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
     })
 }
 const allpetseen = function(req,res)
@@ -22,7 +28,11 @@ const allpetseen = function(req,res)
         res.json(result)
     },function(error)
     {
-
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
     })
     
 
@@ -34,7 +44,12 @@ const editpet = function(req,res)
         res.send(result)
     }, function (error) {
         console.log("some error while updation...", error)
-        res.send("error in updated or employee not found")
+       // res.send("error in updated or employee not found")
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
     })
 
 }
@@ -46,10 +61,16 @@ const deletepet = function(req,res)
 
     }, function (error) {
         console.log("some error while deletion...")
-        res.send("error in deletion..", error)
+       // res.send("error in deletion..", error)
+       res.status(400).send(
+        {
+            message:"The server could not understand the request due to invalid syntax."+error
+        }
+    )
     })
 
 }
+
 
 // const projectid = function(req,res)
 // {

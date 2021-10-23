@@ -6,7 +6,7 @@ const employeesSchema = new Schema({
     email:{type:String , unique:true , required:true},
     deparment:{type:String,required:true},
     image:{type:String},
-    role:{type:String , default:"fresher"},
+    role:{type:String , default:"fresher 0 year"},
     employeesaddress:{type:String},
     qualification:{type:String},
     status:{type:String,default:"full time"},
@@ -14,6 +14,11 @@ const employeesSchema = new Schema({
     phone:{type:Number}
 
 })
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+employeesSchema.path( 'email' ).validate(
+    email => emailRegex.test( email ),
+    'Invalid email id format'
+);
 
 const emodel = Mongoose.model("users",employeesSchema)
 

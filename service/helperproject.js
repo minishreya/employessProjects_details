@@ -12,8 +12,9 @@ return new Promise(function(resolve,reject)
             resolve(result)
         },function(error)
         {
+            projectsdata.remove({projectid:data.projectid})
             console.log("not added project",error)
-            resolve(error)
+            reject(error)
         })
     
 

@@ -5,15 +5,17 @@ const projectsSchema=new Schema({
     petid:{type:Number,require:true},
     taskid:{type: [ Mongoose.Schema.Types.ObjectId ],
         ref: 'task',
-        default:[]},
+        default:[],require:true},
     employeeids: {
         type: [ Mongoose.Schema.Types.ObjectId ],
         ref: 'users',
-        default:[]
+        default:[],
+        require:true
     },
     projectids:{type: [ Mongoose.Schema.Types.ObjectId ],
         ref: 'project',
-    default:[]
+    default:[],
+    require:true
     },
     petname:{type:String, require:true},
     petdetails:{type:String,reuire:true}

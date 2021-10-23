@@ -1,5 +1,6 @@
 const jwt=require('jsonwebtoken')
 const { callbackPromise } = require('nodemailer/lib/shared')
+const eloginmodel=require("./models/employees.login.model")
 exports.createToken=function(payload,callback)// payload ek object jismey email bhejna h
 {
     console.log(" token created...",payload)
@@ -27,11 +28,12 @@ exports.authenticateEmployee = function( req, res, next ) {
         error.status = 401;
         return next( error );
     }
+    console.log("=>",token)
 
     // 'abcd' is the secret key - please store this in process.env.* where * is some environment variable like JWT_SECRET (say)
     jwt.verify( token, 'mysecretkey', function ( err, result ) {
         console.log("value are >>>>>>>>>>>>>>",req.body.email,req.body)
-        console.log("value of of token....",result.email, result.employeesid)
+        console.log("value of of token....",result.email, result.employeesid, result.role)
     
         if( err ) {
            // const error = new Error( 'Go away intruder' );
@@ -44,21 +46,32 @@ exports.authenticateEmployee = function( req, res, next ) {
         }
         else
         {
-            if("employee" ===result.role  && req.body.email === result.email && req.body.employeeid ==result.employeesid)
-            {
-                // && req.body.employeeid ==result.employeeid
+            const t=token
+            // const query={
+            //     etoken:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNocmV5YWphaXN3YWx2bnMxOTk2QGdtYWlsLmNvbSIsInJvbGUiOiJlbXBsb3llZSIsImVtcGxveWVlc2lkIjoxMDIyLCJpYXQiOjE2MzQ3OTI0Njl9.nXZEEtieLATh9t6xIBf5WM2ZWwnJWggSbsCYNaoKMyQ"
 
-                console.log(",,,,,,,,,,,,,,,,,,,,,,,,,,",req.body)
-                next()
-            }
-            else{
-                console.log("not authoried")
-                res.status(401).send({
-                    error:"UnAuthorized"
-                })
-                return
-            
-            }
+            // }
+             console.log(",,,,,,,,,,,,,,,,,,,,,,,,,,->",t.replace(/^\s+f/g,""))
+
+             //eloginmodel.findOne(query).then(function(result){
+                if("employee" ===result.role  && req.body.email === result.email && req.body.employeeid ==result.employeesid)
+                {
+                    // && req.body.employeeid ==result.employeeid
+    
+                    console.log(",,,,,,,,,,,,,,,,,,,,,,,,,,",req.body)
+                    next()
+                }
+                else{
+                    console.log("not authoried",err)
+                    res.status(401).send({
+                        error:"UnAuthorized"
+                    })
+                    return
+                
+                }
+           // })
+
+           
         }
 
        

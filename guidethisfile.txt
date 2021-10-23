@@ -6,3 +6,13 @@
     "mongoose": "^6.0.6",
     "multer": "^1.4.3",
     "xlsx": "^0.17.2"
+
+
+
+
+
+
+
+
+
+    mongodb+srv://fyndEPC:<password>@cluster0.94okp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority

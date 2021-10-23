@@ -11,7 +11,9 @@ const taskadding=function(req,res)
     },function(error)
     {
         console.log("error is..",error)
-        res.status(500).send()
+        res.status(500).send(
+            {message:"Something went wrong."}
+        )
     })
 }
 const alltaskseen = function(req,res)
@@ -22,6 +24,11 @@ const alltaskseen = function(req,res)
     },function(error)
     {
 
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
     })
     
 
@@ -33,7 +40,12 @@ const edittask = function(req,res)
         res.send(result)
     }, function (error) {
         console.log("some error while updation...", error)
-        res.send("error in updated or employee not found")
+       // res.send("error in updated or employee not found")
+       res.status(400).send(
+        {
+            message:"The server could not understand the request due to invalid syntax."+error
+        }
+    )
     })
 
 }
@@ -45,7 +57,12 @@ const deletetask = function(req,res)
 
     }, function (error) {
         console.log("some error while deletion...")
-        res.send("error in deletion..", error)
+       // res.send("error in deletion..", error)
+       res.status(400).send(
+        {
+            message:"The server could not understand the request due to invalid syntax."+error
+        }
+    )
     })
 
 }
@@ -58,6 +75,11 @@ const taskid = function(req,res)
        // res.render("Oneemployeesdetails", { data: result })
 
     }, function (error) {
+        res.status(400).send(
+            {
+                message:"The server could not understand the request due to invalid syntax."+error
+            }
+        )
 
     })
 

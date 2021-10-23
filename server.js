@@ -8,15 +8,21 @@ const helper = require('./helper')
 const Port = process.env.PORT || 8000
 const Mongoose = require('mongoose')
 const excel = require('exceljs');
-const dburl = "mongodb://localhost:27017/companyemployees"
+//const dburl = "mongodb://localhost:27017/companyemployees"
+//const dburl="mongodb+srv://fyndEPC:fyndEPC@cluster0.94okp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 //const dburl = "mongodb+srv://fynd:fynd@cluster0.hzt65.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const dburl="mongodb+srv://fyndEPC:fyndEPC@cluster0.94okp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const employeesmodel = require('./models/employees.model')
 const routeremployees=require('./router/routerEmployees')
 const routerprojects=require('./router/routerProjects')
 const routertask=require('./router/routerTask')
 const routerworklogin=require('./router/routerEmployeesworkHour.js')
 const routerpet=require('./router/routerPEconnect')
+const controllerE=require('./controller/employees')
+const controllerP=require('./controller/projects')
 const logger=require('./middleware/logger')
+//const apiNotFound =require('./middleware/notFound')
+
 //............
 //const url = "mongodb://localhost:27017/";
 //...........
@@ -31,8 +37,8 @@ servers.use(bodyparser.json())
 servers.set('view engine', "ejs")
 // middleware 1
 servers.use(logger);
+//servers.use( apiNotFound );
 servers.use("/t",routertask)
-
 servers.use("/e",routeremployees)
 servers.use("/p",routerprojects)
 servers.use("/auth",routerworklogin)
@@ -51,6 +57,12 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage: storage })
 
 servers.post("/upload", uploads.single('file'), helper.upload)
+servers.get('/downloadEmployees',controllerE.downloadingxls) // here we are calling the e/download but index mey /download bhula rahe h...
+servers.get('/downloadProjects',controllerP.downloadingxls) // here we are calling the e/download but index mey /download bhula rahe h...
+servers.get('/',function(req,res)
+{
+    res.sendFile(__dirname + "/index.html")
+})
 
 
 
