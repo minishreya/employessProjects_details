@@ -16,3 +16,48 @@
 
 
     mongodb+srv://fyndEPC:<password>@cluster0.94okp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+------------------------------------------------------------------------------------
+        images link photos
+  
+    1)boy photos
+    http://res.cloudinary.com/db5vn6bj5/image/upload/v1635076257/hokq1ldk1jy2lblhopui.jpg
+
+    2)girl photos
+    http://res.cloudinary.com/db5vn6bj5/image/upload/v1635076300/hf4jdrb5p2zh1sgnznuf.jpg
+
+    3)boy photos
+    http://res.cloudinary.com/db5vn6bj5/image/upload/v1635076339/aqod8orn4pcytzivegoe.jpg
+
+    4)boy photos
+    http://res.cloudinary.com/db5vn6bj5/image/upload/v1635076407/hbdxeoukkn7jl8bavygu.jpg
+
+    5)girl photos
+    http://res.cloudinary.com/db5vn6bj5/image/upload/v1635076447/durz7fokpsouywmymjib.jpg
+
+    6)girl photos
+    http://res.cloudinary.com/db5vn6bj5/image/upload/v1635076475/vrzazbmaq5ozrfdnzdsr.jpg
+
+    7)boy photos
+    http://res.cloudinary.com/db5vn6bj5/image/upload/v1635076503/bgzcctj8mrxpljmd9a09.jpg
+
+
+-----------------------------------------------------------------------------------------
+        auth admin login
+1)
+         "email":"shreyajaiswalvns1996@gmail.com",
+    "password":"10000"
+
+    result token u acn create by postman or i have make:
+    toekn:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNocmV5YWphaXN3YWx2bnMxOTk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImVtcGxveWVlc2lkIjoxMDAwMCwiaWF0IjoxNjM1MDc2NjkyfQ.FSyG8Hc3ewNrFtdwW_IlCqdK-pr-TyBgCfkLiFxmEDA
+
+
+ ------------------------------------------------------------------------------------------------------------------------------------
+    auth employees logout only need 
+    1)token
+    2) employeesid
+
+
+--------------------------------------------------------------------------------------------------------------------------
+        
+

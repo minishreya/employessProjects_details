@@ -2,11 +2,6 @@ const helper=require("../service/helperemployees.workhour")
 const AuthService=require("../auth.service")
 
 
-// var redis = require('redis');
-// var jWTR =  require('jwt-redis');
-// var redisClient = redis.createClient();
-// var jwtr = jWTR(redisClient);
-
 
 const employeelogin = function (req, res) {
     console.log("data received of find user .......", req.body)
@@ -48,7 +43,7 @@ const employeelogin = function (req, res) {
 
                
                     res.send({
-                        message:"Login Done  "+token
+                        message:"Login Done  PLEASE use this token:"+token
                     })
                 }
                     else
@@ -61,13 +56,7 @@ const employeelogin = function (req, res) {
 
                     }
                 })
-                // res.set("authtoken",token)
-
-               
-                //     res.send({
-                //         message:"Login Done"+token
-                //     })
-                
+              
 
                 
             })
@@ -100,21 +89,20 @@ const employeelogin = function (req, res) {
 const employeelogout= function(req,res)
 {1
     const token = req.header( 'Authorization' );
-    console.log("ttttttttooooookkkkkkkkkkkeeeeeennnnnn",token)
+    console.log("logout toekn in controller",token)
     helper.employeelogout(token,req.body).then(function(result)
     {
         res.send("successfully logout")
 
     })
 
-  //  jwtr.destroy(token)
     console.log("lllllooooooggggggouuuuuuuutttttt")
    // res.send("successfully logout")
 
 }
 const employeesworkhour= function(req,res)
 {
-    console.log("///////////////////",req.body)
+    console.log("auth work employees request body data",req.body)
     helper.allworkhrE({ query: req.query }).then(function (result) {
         res.json(result)
 

@@ -12,7 +12,9 @@ let mailTransporter = nodemailer.createTransport({
 });
 
 var setBody = (email, url) => {
-    var string = `Emloyee id ${url}is password ${url}  and login id is ${email} to check details`
+    var string = `Emloyee id ${url} 
+    password: ${url} and login id: ${email}
+    please visit to check your  details`
     console.log(string)
     var mailDetails = {
         from: 'minishreya221996@gmail.com',

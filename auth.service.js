@@ -1,7 +1,6 @@
 const jwt=require('jsonwebtoken')
-const { callbackPromise } = require('nodemailer/lib/shared')
 const eloginmodel=require("./models/employees.login.model")
-exports.createToken=function(payload,callback)// payload ek object jismey email bhejna h
+const createToken=function(payload,callback)// payload ek object jismey email bhejna h
 {
     console.log(" token created...",payload)
     jwt.sign(payload,"mysecretkey",function(error,token)
@@ -19,7 +18,7 @@ exports.createToken=function(payload,callback)// payload ek object jismey email 
 })
 }
 
-exports.authenticateEmployee = function( req, res, next ) {
+const authenticateEmployee = function( req, res, next ) {
     const token = req.header( 'Authorization' );
     
    
@@ -36,7 +35,6 @@ exports.authenticateEmployee = function( req, res, next ) {
         console.log("value of of token....",result.email, result.employeesid, result.role)
     
         if( err ) {
-           // const error = new Error( 'Go away intruder' );
            console.log("not authoried",err)
            res.status(401).send({
                error:"UnAuthorized"
@@ -78,7 +76,7 @@ exports.authenticateEmployee = function( req, res, next ) {
        // next();
     });
 };
-exports.authenticateAdmin = function( req, res, next ) {
+const authenticateAdmin = function( req, res, next ) {
     const token = req.header( 'Authorization' );
     
 
@@ -122,3 +120,46 @@ exports.authenticateAdmin = function( req, res, next ) {
     });
 };
 
+
+const authenticatetask = function( req, res, next ) {
+    const token = req.header( 'Authorization' );
+    
+
+    if( !token ) {
+        console.log("not authoried")
+        res.status(401).send({
+            error:"UnAuthorized"
+        })
+        return
+    
+    }
+
+    // 'abcd' is the secret key - please store this in process.env.* where * is some environment variable like JWT_SECRET (say)
+    jwt.verify( token, 'mysecretkey', function ( err, result ) {
+        if( err ) {
+            console.log("not authoried")
+            res.status(401).send({
+                error:"UnAuthorized"
+            })
+            return
+        
+        }
+        else
+        {
+            next()
+        }
+        
+
+       
+       // next();
+    });
+};
+
+
+module.exports={
+    authenticatetask,
+    authenticateAdmin,
+    authenticateEmployee,
+    createToken
+
+}

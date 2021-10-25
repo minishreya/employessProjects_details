@@ -2,7 +2,7 @@ const fs = require("fs")
 const employesmodel = require('../models/employees.model')
 const loginmodel=require("../models/employees.login.model")
 const mailer=require("../mail.service")
-const store = (data) => {
+const store = function(data)  {
 
     if (!fs.existsSync("users.txt")) {
         fs.appendFileSync("users.txt", "")

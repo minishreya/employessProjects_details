@@ -7,30 +7,22 @@ const employeelogin = function (data) {
         //,
         //password: data.password
     }
-    console.log("helper",data)
+    console.log(" auth before checking data helper",data)
 
     return new Promise(function (resolve, reject) {
-        // employeesworkhourModel.checkPassword( data.password, ( err, isMatch ) => {
-        //     if( err ) {
-        //         // const error = new Error( 'No matching credentials' );
-        //         // error.status = 404;
-        //         console.log("user not finf error....", error)
-        //        // return next( error );
-        //        reject(err)
-        //     }
+    
         employeesworkhourModel.findOne(query).then(function (result) {
-           // employeesSchema.methods.checkPassword = function( password, done ) {
-                console.log("gggshhh",result)
+                console.log("auth login find employes",result)
                 bcrypt.compare( data.password, result.password, ( err, isMatch ) => {
-                    console.log("aaaaaaaaa",err,isMatch)
+                    console.log("after bcrypt data ",err,isMatch)
                    // done( err, isMatch );
                 });
-          // };
+         
             
             console.log("result of find user", result)
             resolve(result)
         }, function (error) {
-            console.log("user not finf error....", error)
+            console.log("user not find error....", error)
             reject("not find user")
         })
    
@@ -41,8 +33,8 @@ const employeelogin = function (data) {
 }
 
 const employeestoken = function (token, data) {
-    console.log("ttttttttttttt", token)
-    console.log("ddddddddddd", data)
+    console.log("token taken in token checking first", token)
+    console.log("token and data is checking..", data)
     var query = {
         email: data.email
     }
@@ -65,7 +57,7 @@ const employeestoken = function (token, data) {
             resolve(result)
 
         }, function (error) {
-            console.log("user not finf error....", error)
+            console.log("user not find error....", error)
             resolve("not find user")
         })
 
@@ -73,8 +65,8 @@ const employeestoken = function (token, data) {
 }
 
 const employeelogout = function (token, data) {
-    console.log("ttttttttttttt", token)
-    console.log("ddddddddddd", data)
+    console.log("logout toekn ", token)
+    console.log("log out data but id is mandatory", data)
     var query = {
         employeeid: data.employeeid
     }
@@ -113,30 +105,30 @@ const employeelogout = function (token, data) {
                 resolve(result)
             },
                 function (error) {
-                    console.log("user upadte hour finf error....", error)
-                    resolve("not find user")
+                    console.log("user upadte hour find error....", error)
+                    resolve("not hour update at logout")
                 })
 
 
         }, function (error) {
-            console.log("user not finf error....", error)
-            resolve("not find user")
+            console.log("user not find error....", error)
+            resolve("not find user while logout")
         })
 
     })
 }
 const allworkhrE= function(data)
 {
-    console.log("...........data", data)
+    console.log("all work hour time data", data)
     return new Promise(function (resolve, reject) {
         var query = data.query || {}
         // var projection = { coverid: 1, title: 1 }
         // CoversModel.find(query, projection).then(function (result) {
         employeesworkhourModel.find(query).select({employeeid:true,workhour:true,name:true}).then(function (result) {
-            console.log("find employees......", result)
+            console.log("find employees. of workhour .....", result)
             resolve(result)
         }, function (error) {
-            console.log("error find in employees from db", error)
+            console.log("error find in employees from db for work hour", error)
             reject(error)
         })
     })

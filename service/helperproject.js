@@ -1,6 +1,6 @@
 const fs = require("fs")
 const projectmodel=require('../models/projects.model')
-const store = (data)=>
+const store = function(data)
 {
 return new Promise(function(resolve,reject)
 {
@@ -22,14 +22,12 @@ return new Promise(function(resolve,reject)
 
 
 const allprojects = function (data) {
-    console.log("...........data", data)
+    console.log("All projects...........data", data)
     return new Promise(function (resolve, reject) {
         var query = data.query || {}
-        // var projection = { coverid: 1, title: 1 }
-        // CoversModel.find(query, projection).then(function (result) {
            // projectmodel.find(query).populate( {path:'employeeIds',select: 'name'} ).then(function (result) {
                 projectmodel.find(query).then(function (result) {
-            console.log("find employees......", result)
+            console.log("after query of all projects", result)
             resolve(result)
         }, function (error) {
             console.log("error find in employees from db", error)
@@ -63,11 +61,11 @@ const editproject= function(data)
         }
         else
         {
-            reject("something went wrong..")
+            reject("something went wrong..while updating projects ")
         }
         },function(error)
     {
-        console.log("some error")
+        console.log("some error while upadte projects details")
         reject(error)
     })
 })
@@ -95,14 +93,14 @@ const deleteproject= function(data)
 
 const oneproject= function(data)
 {
-    console.log("...........data", data)
+    console.log("ONE projects...........data", data)
     return new Promise(function (resolve, reject) {
 
         projectmodel.findOne(data).then(function (result) {
-            console.log("find employess......", result)
+            console.log("find one projects......", result)
             resolve(result)
         }, function (error) {
-            console.log("error find in employees from db", error)
+            console.log("error find in projects from db", error)
             reject(error)
         })
     })
@@ -110,10 +108,7 @@ const oneproject= function(data)
 
 
 
-// },function(error)
-// {
-//     console.log("error is ",error)
-// })
+
 
 
 module.exports={

@@ -1,4 +1,5 @@
 const Mongoose = require('mongoose')
+const bcrypt=require('bcrypt')
 const Schema = Mongoose.Schema
 const employeesSchema = new Schema({
     employeeid:{type:Number,unique:true,require:true},

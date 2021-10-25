@@ -1,6 +1,6 @@
 const fs = require("fs")
 const petmodel=require('../models/pet.model')
-const store = (data)=>
+const store =function (data)
 {
 return new Promise(function(resolve,reject)
 {
@@ -28,8 +28,6 @@ const allpet = function (data) {
     console.log("...........data", data)
     return new Promise(function (resolve, reject) {
         var query = data.query || {}
-        // var projection = { coverid: 1, title: 1 }
-        // CoversModel.find(query, projection).then(function (result) {
            // projectmodel.find(query).populate( {path:'employeeIds',select: 'name'} ).then(function (result) {
                 petmodel.find(query).populate( {path:'employeeids',select: 'name'} ).populate({path:'projectids'}).populate({path:'taskid'}).then(function (result) {
             console.log("find employees......", result)
@@ -66,11 +64,11 @@ const editpet= function(data)
         }
         else
         {
-            reject("something went wrong..")
+            reject("something went wrong while updateing the  PET.")
         }
     },function(error)
     {
-        console.log("some error")
+        console.log("some error while PET update")
         reject(error)
     })
     })
@@ -96,27 +94,6 @@ const deletepet= function(data)
     )
 }
 
-// const oneproject= function(data)
-// {
-//     console.log("...........data", data)
-//     return new Promise(function (resolve, reject) {
-
-//         projectmodel.findOne(data).then(function (result) {
-//             console.log("find employess......", result)
-//             resolve(result)
-//         }, function (error) {
-//             console.log("error find in employees from db", error)
-//             reject(error)
-//         })
-//     })
-// }
-
-
-
-// },function(error)
-// {
-//     console.log("error is ",error)
-// })
 
 
 module.exports={

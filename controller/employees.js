@@ -1,18 +1,12 @@
-//const express = require('express')
 const fs = require('fs')
 const path=require('path')
-//const bodyparser = require('body-parser')
 const multer = require('multer')
 const XLSX = require('xlsx')
 const helper = require('../service/helperemployees')
-//const Mongoose = require('mongoose')
 const excel = require('exceljs');
 //const dburl = "mongodb://localhost:27017/companyemployees"
 //const dburl = "mongodb+srv://fynd:fynd@cluster0.hzt65.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const employeesmodel = require('../models/employees.model')
-//............
-//const url = "mongodb://localhost:27017/";
-//...........
 
 //link is  on heroku----->
 //https://employeesbymini.herokuapp.com/allemployes
@@ -37,9 +31,7 @@ const empoyessadding =function (req, res) {
 
         res.send(data)
     }, function (error) {
-        // res.send={
-        //     message:"duplicate employees id not be admitted"
-        // }
+        
         console.log("error is...",error)
         res.status(400).send(
             {
@@ -168,22 +160,7 @@ const convertJsonToExcel = () => {
 
 
 
-//servers.post("/upload", uploads.single('file'), helper.upload)
-// const uploadSingleImage = function(req,res)
-// {
-//     const storage = multer.diskStorage({
-//         destination: function (req, file, cb) {
-//             cb(null, 'uploads')
-//         },
-//         filename: function (req, file, cb) {
-//             console.log(".......................chaning", file)
-//             cb(null, file.originalname)
-//         }
-//     })
-    
-//     const uploads = multer({ storage: storage })
 
-// }
 
 
 module.exports={
