@@ -55,6 +55,13 @@ const employeelogin = function (req, res) {
                         })
 
                     }
+                },function(error)
+                {
+                    console.log("not")
+                    res.status(403)
+                    res.send({
+                        message:"The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server"
+                    })
                 })
               
 
@@ -90,10 +97,36 @@ const employeelogout= function(req,res)
 {1
     const token = req.header( 'Authorization' );
     console.log("logout toekn in controller",token)
+    if(!token)
+    {
+            res.status(400)
+            res.send({
+                message:"Token is not received"
+            })
+    }
     helper.employeelogout(token,req.body).then(function(result)
     {
-        res.send("successfully logout")
+        if(!result)
+        {
 
+            res.send("successfully  NOT logout")
+        }
+        else
+        {
+            res.send(
+                {
+                    message:"successfully logout",result
+                }
+            )
+        }
+        
+
+    },function(error)
+    {
+        res.status(400)
+            res.send({
+                message:"Something went wrong while logout",error
+            })
     })
 
     console.log("lllllooooooggggggouuuuuuuutttttt")

@@ -58,7 +58,7 @@ const employeestoken = function (token, data) {
 
         }, function (error) {
             console.log("user not find error....", error)
-            resolve("not find user")
+            reject("not find user")
         })
 
     })
@@ -66,11 +66,12 @@ const employeestoken = function (token, data) {
 
 const employeelogout = function (token, data) {
     console.log("logout toekn ", token)
+
     console.log("log out data but id is mandatory", data)
     var query = {
         employeeid: data.employeeid
     }
-    var queryupdate = {
+    var queryupdatenew = {
         employeeid: data.employeeid,
         name: data.name,
         password: data.password,
@@ -84,37 +85,57 @@ const employeelogout = function (token, data) {
     }
 
     return new Promise(function (resolve, reject) {
+        employeesworkhourModel.findOne(query).then(function (result) {
+            if(result.etoken === "notadded")
+            {
+                reject("Token is invalid")
+                return
 
-        employeesworkhourModel.findOneAndUpdate(query, queryupdate).then(function (result) {
-            responsetimelogin = result.logindate
-            responsetimelogout = result.logoutdate
-            currentworkhr=responsetimelogout.getTime() - responsetimelogin.getTime()
-            updateworkhr = result.workhour+currentworkhr
-            var updatehr = {
-                employeeid: data.employeeid,
-                name: data.name,
-                password: data.password,
-                email: data.email,
-                loginrole: data.loginrole,
-                workhour: updateworkhr,
-                logindate: new Date(), // u can set date to zero for logout again not be done
-                logoutdate: new Date(),
-                etoken: "notadded"
             }
-            employeesworkhourModel.findOneAndUpdate(query, updatehr).then(function (result) {
-                resolve(result)
-            },
-                function (error) {
-                    console.log("user upadte hour find error....", error)
-                    resolve("not hour update at logout")
-                })
+            else
+            { employeesworkhourModel.findOneAndUpdate(query, queryupdatenew).then(function (result) {
+                responsetimelogin = result.logindate
+                responsetimelogout = result.logoutdate
+                console.log("time in value...",responsetimelogin.getTime())
+                console.log("time out value...",responsetimelogout.getTime())
+                currentworkhr=  responsetimelogin.getTime() - responsetimelogout.getTime()
+                updateworkhr = result.workhour+currentworkhr
+                console.log("logotout time",updateworkhr)
+                var updatehr = {
+                    employeeid: data.employeeid,
+                    name: data.name,
+                    password: data.password,
+                    email: data.email,
+                    loginrole: data.loginrole,
+                    workhour: updateworkhr,
+                    logindate: data.employeelogin, // u can set date to zero for logout again not be done
+                    logoutdate: new Date(),
+                    etoken: "notadded"
+                }
+                employeesworkhourModel.findOneAndUpdate(query, updatehr).then(function (result) {
+                    resolve(result)
+                },
+                    function (error) {
+                        console.log("user upadte hour find error....", error)
+                        reject("not hour update at logout",error)
+                    })
+    
+    
+            }, function (error) {
+                console.log("user not find error....", error)
+                reject("not find user while logout",error)
+            })
+    }
 
-
+           
+           
         }, function (error) {
-            console.log("user not find error....", error)
-            resolve("not find user while logout")
+            console.log("error while logout", error)
+            reject(error)
         })
+        
 
+       
     })
 }
 const allworkhrE= function(data)

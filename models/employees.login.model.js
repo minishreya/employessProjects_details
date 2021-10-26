@@ -30,13 +30,13 @@ employeesSchema.pre( 'save', function( done ) {
     // password has been updated - hash and save it
     bcrypt.genSalt( SALT_FACTOR, ( err, salt ) => {
         if( err ) {
-            console("11111",err)
+            console("salt error hash in login model",err)
             return done( err );
         }
 
         bcrypt.hash( user.password, salt, ( err, hashedPassword ) => {
             if( err ) {
-                console.log("2222222222222",err)
+                console.log("after salt login model",err)
                 return done( err );
             }
             console.log("333333333",user.password)

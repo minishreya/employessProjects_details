@@ -2,7 +2,7 @@ const Mongoose=require('mongoose')
 const Schema = Mongoose.Schema
 
 const projectsSchema=new Schema({
-    petid:{type:Number,require:true},
+    petid:{type:Number,require:true,unique:true},
     taskid:{type: [ Mongoose.Schema.Types.ObjectId ],
         ref: 'task',
         default:[],require:true},
