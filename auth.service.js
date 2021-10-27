@@ -45,13 +45,27 @@ const authenticateEmployee = function( req, res, next ) {
         else
         {
             const t=token
-            // const query={
-            //     etoken:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNocmV5YWphaXN3YWx2bnMxOTk2QGdtYWlsLmNvbSIsInJvbGUiOiJlbXBsb3llZSIsImVtcGxveWVlc2lkIjoxMDIyLCJpYXQiOjE2MzQ3OTI0Njl9.nXZEEtieLATh9t6xIBf5WM2ZWwnJWggSbsCYNaoKMyQ"
+             const query={
+                 etoken:token
 
-            // }
+            }
              console.log(",,,,,,,,,,,,,,,,,,,,,,,,,,->",t.replace(/^\s+f/g,""))
 
-             //eloginmodel.findOne(query).then(function(result){
+            //  eloginmodel.findOne(query).then(function(result){
+
+            //      )}
+            eloginmodel.findOne(query).then(function(result)
+            {
+                if(!result)
+                {
+                    console.log("not authoried",err)
+                    res.status(401).send({
+                        error:"UnAuthorized"
+                    })
+                    return
+
+                }
+            })
                 if("employee" ===result.role  && req.body.email === result.email && req.body.employeeid ==result.employeesid)
                 {
                     // && req.body.employeeid ==result.employeeid
