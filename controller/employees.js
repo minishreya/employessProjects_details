@@ -95,7 +95,6 @@ const deleteemployees = function (req, res) {
 const employeesid = function (req, res) {
     console.log("employees id is......", req.params)
     helper.oneemployees(req.params).then(function (result) {
-       // res.render("Oneemployeesdetails", { data: result })
        res.json(result)
 
     }, function (error) {

@@ -21,7 +21,6 @@ const routerpet=require('./router/routerPEconnect')
 const controllerE=require('./controller/employees')
 const controllerP=require('./controller/projects')
 const logger=require('./middleware/logger')
-//const apiNotFound =require('./middleware/notFound')
 
 //............
 //const url = "mongodb://localhost:27017/";
@@ -30,14 +29,12 @@ const logger=require('./middleware/logger')
 //link is  on heroku----->
 //https://employeesbymini.herokuapp.com/allemployes
 
-//[Deploy to Heroku - Prashanth Sir's channel]: https://www.youtube.com/watch?v=tBqIqDK6ZF4
 
 
 servers.use(bodyparser.json())
 servers.set('view engine', "ejs")
 // middleware 1
 servers.use(logger);
-//servers.use( apiNotFound );
 servers.use("/t",routertask)
 servers.use("/e",routeremployees)
 servers.use("/p",routerprojects)

@@ -4,8 +4,7 @@ const bcrypt = require( 'bcrypt' );
 const employeelogin = function (data) {
     var query = {
         email: data.email
-        //,
-        //password: data.password
+        
     }
     console.log(" auth before checking data helper",data)
 
@@ -16,11 +15,20 @@ const employeelogin = function (data) {
                 bcrypt.compare( data.password, result.password, ( err, isMatch ) => {
                     console.log("after bcrypt data ",err,isMatch)
                    // done( err, isMatch );
+                   if(isMatch === false)
+                   {
+                    reject("Invalid Password")
+                   }
+                   else
+                   {
+                    console.log("result of find user", result)
+                    resolve(result)
+                   }
                 });
          
             
-            console.log("result of find user", result)
-            resolve(result)
+            // console.log("result of find user", result)
+            // resolve(result)
         }, function (error) {
             console.log("user not find error....", error)
             reject("not find user")
@@ -39,14 +47,14 @@ const employeestoken = function (token, data) {
         email: data.email
     }
     var queryupdate = {
-        employeeid: data.employeeid,
-        name: data.name,
-        password: data.password,
-        email: data.email,
-        loginrole: data.loginrole,
-        workhour: data.workhour,
-        logindate: new Date(),
-        logoutdate: data.logoutdate,
+        // employeeid: data.employeeid,
+        // name: data.name,
+        // password: data.password,
+        // email: data.email,
+        // loginrole: data.loginrole,
+        // workhour: data.workhour,
+        // logindate: new Date(),
+        // logoutdate: data.logoutdate,
         etoken: token
 
     }

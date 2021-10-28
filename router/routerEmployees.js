@@ -6,7 +6,6 @@ const helper=require('../helper')
 const auth=require("../auth.service")
 
 erouter.get('/',controller.home)
-// erouter.get('/download',controller.downloadingxls) // here we are calling the e/download but index mey /download bhula rahe h...
 erouter.post("/employesadd",auth.authenticateAdmin,controller.empoyessadding) 
 //erouter.post("/employesadd",controller.empoyessadding) 
 erouter.get("/allemployes",controller.allemployeesseen)
